@@ -12,7 +12,7 @@ This project displays an interactive calendar where you can view upcoming events
 ## How to Use:
 
 ### Event Format:
-Events are stored as a JSON array, with each event containing the following properties:
+Events are stored as a JSON array in [events.json](https://github.com/VijaySamant4368/hashcalendar/blob/main/events.json), with each event containing the following properties:
 - `date`: The date of the event in `YYYY-MM-DD` format.
 - `title`: The title of the event.
 - `link`: A URL link related to the event.
@@ -38,7 +38,7 @@ Events are stored as a JSON array, with each event containing the following prop
 
 ### `eventcolor` Object
 
-The `eventcolor` object defines colors for each event type:
+The `eventcolor` object in [colors.js](https://github.com/VijaySamant4368/hashcalendar/blob/main/colors.js) defines colors for each event type:
 
 ```javascript
 {
@@ -49,7 +49,7 @@ The `eventcolor` object defines colors for each event type:
 
 ### `defaultcolor` variable
 
-A default color ("blue") is assigned for events that do not match the predefined event types:
+In [colors.js](https://github.com/VijaySamant4368/hashcalendar/blob/main/colors.js), a default color ("blue") is assigned for events that do not match the predefined event types:
 
 ```javascript
 const defaultcolor = "blue";
