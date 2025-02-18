@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearly Calendar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Calendar for {{current year}} and {{next year}}</h1>
+    <div id="calendar-container">
+        <div class="year" id="this-year">
+            <h2>This Year</h2>
+            <div class="months" id="this-year-months"></div>
+        </div>
+        <div class="year" id="next-year">
+            <h2>Next Year</h2>
+            <div class="months" id="next-year-months"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
