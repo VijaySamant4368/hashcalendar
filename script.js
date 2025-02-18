@@ -107,12 +107,19 @@ function getDateParts(inputDate) {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch events from the JSON file
-    fetch('/events.json')
-        .then(response => response.json())
+    fetch('https://vijaysamant4368.github.io/hashcalendar/events.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(events => {
             renderEvents(events);
         })
-        .catch(error => console.error('Error loading the events data:', error));
+        .catch(error => {
+            console.error('Error loading the events data:', error.message);
+        });
 
     // Function to render the events on the page
     function renderEvents(events) {
@@ -121,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Iterate through the events and display them
         events.forEach(event => {
-
             const dateParts = getDateParts(event.date);
             const year = dateParts.year - currentYear;
             if (year !== 0 && year !== 1)
@@ -148,13 +154,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             </a>
             `;
             day.style.backgroundColor = eventTypeToColor(event.type);
-            
+                        
             // // Create and add the anchor element (the link)
             // const link = document.createElement('a');
             // link.href = event.link;
             // link.target = '_blank';
             // link.textContent = 'Click Here';
             // day.appendChild(link);
+
 
         });
     }
