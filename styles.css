@@ -63,3 +63,35 @@ h1 {
 .day-name {
     font-weight: bold;
 }
+
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative; /* To position the tooltip */
+  }
+
+  /* Tooltip Style (hidden by default) */
+  .tooltip {
+    visibility: hidden;
+    position: absolute;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+    bottom: 100%; /* Position above the link */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: max-content;
+    white-space: nowrap;
+  }
+
+  /* Show tooltip on hover */
+  a:hover .tooltip {
+    visibility: visible;
+  }

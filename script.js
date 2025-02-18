@@ -5,6 +5,15 @@ document.getElementById("title").innerHTML = "Calendar for " + currentYear + " a
 
 week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+function eventTypeToColor(eventType) {
+    if (eventType === "startline") {
+        return "green";
+    } else if (eventType === "deadline") {
+        return "red";
+    }
+    return  "blue";
+}
+
 // Function to generate a calendar for a given year
 function generateCalendar(year) {
     const months = [];
@@ -82,3 +91,71 @@ function renderCalendar(year, elementId) {
 // Render both this year and next year
 renderCalendar(currentYear, 'this-year-months');
 renderCalendar(nextYear, 'next-year-months');
+
+function getDateParts(inputDate) {
+    const date = new Date(inputDate); // Convert input to a Date object
+    const year = date.getFullYear(); // Get the year
+    const month = date.getMonth() + 1; // Get the month (0-based, so add 1)
+    const day = date.getDate(); // Get the day of the month
+
+    return {
+        year: year,
+        month: month,
+        day: day
+    };
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch events from the JSON file
+    fetch('/events.json')
+        .then(response => response.json())
+        .then(events => {
+            renderEvents(events);
+        })
+        .catch(error => console.error('Error loading the events data:', error));
+
+    // Function to render the events on the page
+    function renderEvents(events) {
+        const calendarContainer = document.getElementById('calendar-container');
+        const months = document.getElementsByClassName('month');
+
+        // Iterate through the events and display them
+        events.forEach(event => {
+
+            const dateParts = getDateParts(event.date);
+            const year = dateParts.year - currentYear;
+            if (year !== 0 && year !== 1)
+                return; // Skip events that are not in the current or next year
+            const month = months[dateParts.month-1];
+            const days = month.querySelectorAll(".day")
+            var blankDays = 0
+            for (let i = 0; i < days.length; i++) {
+                if (days[i].textContent === "") {
+                    blankDays++;
+                } else {
+                    break;
+                }
+            } 
+            const day = days[dateParts.day-1 + blankDays];
+            if (day === null) {
+                return; // Skip days that are not in the current or next month
+            }
+            const event_date = day.innerHTML;
+            console.log(day)
+
+            day.innerHTML = `<a href = ${event.link}>${event_date}
+                            <span class="tooltip">${event.title}</span>
+                            </a>
+            `;
+            day.style.backgroundColor = eventTypeToColor(event.type);
+            
+            // // Create and add the anchor element (the link)
+            // const link = document.createElement('a');
+            // link.href = event.link;
+            // link.target = '_blank';
+            // link.textContent = 'Click Here';
+            // day.appendChild(link);
+
+        });
+    }
+});
