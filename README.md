@@ -7,7 +7,7 @@ This project displays an interactive calendar where you can view upcoming events
 - Displays a full calendar grid with months and days.
 - Highlights days with upcoming events.
 - Displays event details (title and description) for each event when hovering over the event.
-- The events are fetched from a `JSON` file that contains the date, title, and description.
+- The events are fetched from a `JSON` file that contains the date, title, and links.
 
 ## How to Use:
 
@@ -34,4 +34,25 @@ Events are stored as a JSON array, with each event containing the following prop
         "type": "deadline"
     }
 ]
+```
 
+### `eventcolor` Object
+
+The `eventcolor` object defines colors for each event type:
+
+```javascript
+{
+  "startline": "green",
+  "deadline": "red"
+}
+```
+
+### `defaultcolor` variable
+
+A default color ("blue") is assigned for events that do not match the predefined event types:
+
+```javascript
+const defaultcolor = "blue";
+```
+
+You can use this structure to easily manage event timelines, assigning colors to each event based on its type. You can modify the `events` file to add more events, change the dates, or update the URLs for each event.

@@ -5,15 +5,6 @@ document.getElementById("title").innerHTML = "Calendar for " + currentYear + " a
 
 week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-function eventTypeToColor(eventType) {
-    if (eventType === "startline") {
-        return "green";
-    } else if (eventType === "deadline") {
-        return "red";
-    }
-    return  "blue";
-}
-
 // Function to generate a calendar for a given year
 function generateCalendar(year) {
     const months = [];
@@ -123,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to render the events on the page
     function renderEvents(events) {
-        const calendarContainer = document.getElementById('calendar-container');
         const months = document.getElementsByClassName('month');
 
         // Iterate through the events and display them
@@ -144,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } 
             const day = days[dateParts.day-1 + blankDays];
             if (day === null) {
-                return; // Skip days that are not in the current or next month
+                return; // Skip days that are not valid
             }
             const event_date = day.innerHTML;
             console.log(day)
@@ -153,15 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <span class="tooltip">${event.title}</span>
                             </a>
             `;
-            day.style.backgroundColor = eventTypeToColor(event.type);
-                        
-            // // Create and add the anchor element (the link)
-            // const link = document.createElement('a');
-            // link.href = event.link;
-            // link.target = '_blank';
-            // link.textContent = 'Click Here';
-            // day.appendChild(link);
-
+            day.style.backgroundColor = (eventcolor[(event.type)] || defaultcolor);
 
         });
     }
