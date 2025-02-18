@@ -1,6 +1,10 @@
 const currentYear = new Date().getFullYear();
 const nextYear = currentYear + 1;
 
+document.getElementById("title").innerHTML = "Calendar for " + currentYear + " and " + nextYear;
+
+week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 // Function to generate a calendar for a given year
 function generateCalendar(year) {
     const months = [];
@@ -39,7 +43,17 @@ function renderCalendar(year, elementId) {
         monthDiv.innerHTML = `<h3>${monthName}</h3>`;
         
         const daysDiv = document.createElement('div');
+        const weekDiv = document.createElement('div');
         daysDiv.classList.add('days');
+        weekDiv.classList.add('week');
+        for (let i = 0; i < week.length; i++) {
+            const element = week[i];
+            const dayDiv = document.createElement('div');   
+            dayDiv.textContent = element;
+            dayDiv.classList.add('day-name');
+            daysDiv.appendChild(dayDiv);       
+        }
+        
         
         // Add the days to the month
         monthData.monthDays.forEach(day => {
@@ -59,6 +73,7 @@ function renderCalendar(year, elementId) {
             daysDiv.appendChild(dayDiv);
         });
         
+        monthDiv.appendChild(weekDiv);
         monthDiv.appendChild(daysDiv);
         container.appendChild(monthDiv);
     });
